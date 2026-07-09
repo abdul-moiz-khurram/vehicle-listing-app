@@ -16,7 +16,8 @@
 - JavaScript 
 - Postgresql 
 ## Project Structure 
-``` vehicle-listing-app/ 
+``` 
+│──vehicle-listing-app/ 
 │ 
 ├── static/ 
 │   └── uploads/ 
