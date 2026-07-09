@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Login</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    font-family: Arial, sans-serif;
+}
+
+
+body{
+
+    margin:0;
+    height:100vh;
+
+    background:#233d7b;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+}
+
+
+
+.container{
+
+    background:white;
+
+    width:380px;
+
+    padding:35px;
+
+    border-radius:15px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+
+}
+
+
+
+h2{
+
+    text-align:center;
+
+    color:#233d7b;
+
+    margin-bottom:25px;
+
+}
+
+
+
+input{
+
+    width:100%;
+
+    padding:12px;
+
+    margin:10px 0;
+
+    border:1px solid #ddd;
+
+    border-radius:8px;
+
+}
+
+
+
+button{
+
+
+    width:100%;
+
+    padding:12px;
+
+    background:#233d7b;
+
+    color:white;
+
+    border:none;
+
+    border-radius:8px;
+
+    font-size:16px;
+
+    cursor:pointer;
+
+}
+
+
+
+button:hover{
+
+    background:#233d7b;
+
+}
+
+
+
+p{
+
+    text-align:center;
+
+    margin-top:20px;
+
+}
+
+
+
+a{
+
+    color:#233d7b;;
+
+    text-decoration:none;
+
+    font-weight:bold;
+
+}
+
+
+</style>
+
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<h2>
+Login
+</h2>
+
+
+
+<form method="POST">
+
+
+<input
+
+type="email"
+
+name="email"
+
+placeholder="Email"
+
+required>
+
+
+
+<input
+
+type="password"
+
+name="password"
+
+placeholder="Password"
+
+required>
+
+
+
+<button>
+
+Login
+
+</button>
+
+
+
+</form>
+
+
+
+<p>
+
+Don't have an account?
+
+<a href="/signup">
+
+Signup
+
+</a>
+
+
+</p>
+
+
+
+</div>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,182 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Vehicle Marketplace</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f6f8;
+            margin: 0;
+            color: #172033;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 95%;
+            max-width: 1400px;
+            margin: auto;
+            padding: 24px 0;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        @media(max-width:992px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media(max-width:600px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .12);
+            transition: .25s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, .18);
+        }
+
+        .image-wrap {
+            height: 180px;
+            background: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+
+
+        .content {
+            padding: 15px;
+        }
+
+        .title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #222;
+        }
+
+        .price {
+            font-size: 22px;
+            color: #ff6b00;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .meta {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .btn-primary {
+            background: #233d7b;
+            color: white;
+            width: 100%;
+            text-align: center;
+            border-radius: 8px;
+        }
+
+        .content .btn-primary {
+            width: auto;
+            padding: 10px 20px;
+        }
+
+        .btn-primary:hover {
+            background: #3052a2;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .topbar>div {
+            display: flex;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 10px 14px;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: bold;
+            margin: 4px;
+            border: 0
+        }
+
+
+        .btn-secondary {
+            background: #e5e7eb;
+            color: #172033
+        }
+
+        .pagination {
+            margin-top: 28px;
+            text-align: center
+        }
+
+        .empty {
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+            text-align: center
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="topbar">
+            <h2><i class="fa-solid fa-car-side"></i> Vehicle Marketplace</h2>
+            <div>{% if session.user_id %}<a href="/add-vehicle" class="btn btn-primary"><i class="fa-solid fa-plus"></i>
+                    Add Vehicle</a><a href="/logout" class="btn btn-secondary"><i
+                        class="fa-solid fa-right-from-bracket"></i> Logout</a>{% else %}<a href="/login"
+                    class="btn btn-primary"><i class="fa-solid fa-right-to-bracket"></i> Login</a>{% endif %}</div>
+        </div>
+        <div class="grid">{% for v in vehicles %}<article class="card">
+                <div class="image-wrap">{% if v.image %}<img
+                        src="{{ url_for('static', filename=v.image.replace('static/', '')) }}" alt="{{ v.title }}"
+                        onerror="this.style.display='none'">{% else %}<i class="fa-solid fa-car"
+                        style="font-size:58px;display:block;text-align:center;padding-top:62px;color:#98a2b3"></i>{%
+                    endif %}</div>
+                <div class="content">
+                    <p class="title">{{ v.title }}</p>
+                    <div class="price">Rs {{ '{:,.0f}'.format(v.price) }}</div>
+                    <div class="meta"><i class="fa-solid fa-tag"></i> {{ v.brand }}</div><a
+                        href="{{ url_for('vehicle_detail', vehicle_id=v.id) }}" class="btn btn-primary"><i
+                            class="fa-solid fa-eye"></i> View Details</a>
+                </div>
+            </article>{% else %}<div class="empty">No vehicles available yet.</div>{% endfor %}</div>
+        <div class="pagination">{% if page > 1 %}<a class="btn btn-secondary" href="/home?page={{page-1}}"><i
+                    class="fa-solid fa-chevron-left"></i> Previous</a>{% endif %}<span>Page {{page}} of
+                {{total_pages}}</span>{% if page < total_pages %}<a class="btn btn-primary"
+                href="/home?page={{page+1}}">Next <i class="fa-solid fa-chevron-right"></i></a>{% endif %}</div>
+    </div>
+</body>
+
+</html>

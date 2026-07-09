@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Vehicle Details</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f7fb;
+            margin: 0;
+            color: #1f2937
+        }
+
+        .wrap {
+            max-width: 1000px;
+            margin: 35px auto;
+            padding: 0 18px
+        }
+
+        .detail-card {
+            background: #fff;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px #00000012
+        }
+
+        .hero {
+            width: 100%;
+            height: 380px;
+            object-fit: contain;
+            background: #e5e7eb
+        }
+
+        .body {
+            padding: 28px
+        }
+
+        .tag {
+            display: inline-block;
+            background: #e8efff;
+            color: #233d7b;
+            padding: 7px 12px;
+            border-radius: 20px;
+            font-weight: bold
+        }
+
+        .title {
+            font-size: 32px;
+            margin: 14px 0 8px
+        }
+
+        .price {
+            font-size: 27px;
+            color: #e66a00;
+            font-weight: bold
+        }
+
+        .info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 24px 0
+        }
+
+        .box {
+            background: #f8fafc;
+            padding: 16px;
+            border-radius: 12px
+        }
+
+        .label {
+            color: #64748b;
+            font-size: 13px
+        }
+
+        .value {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 5px
+        }
+
+        .desc {
+            background: #f8fafc;
+            border-left: 4px solid #233d7b;
+            padding: 18px;
+            border-radius: 8px;
+            line-height: 1.6
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 24px;
+            padding: 11px 17px;
+            border-radius: 9px;
+            text-decoration: none;
+            border: 0;
+            font-weight: bold;
+            background: #233d7b;
+            color: #fff
+        }
+
+        .delete {
+            background: #dc2626;
+            margin-left: 8px
+        }
+
+        @media(max-width:600px) {
+            .hero {
+                height: 250px
+            }
+
+            .info {
+                grid-template-columns: 1fr
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="detail-card">
+            {% if images %}<img class="hero"
+                src="{{ url_for('static', filename=images[0][0].replace('static/', '')) }}">{% else %}
+            <div class="hero no-image">
+                <i class="fa-solid fa-car"></i>
+                <p>No image available</p>
+            </div>
+            {% endif %}
+            <div class="body"><span class="tag">{{ vehicle[5] }}</span>
+                <h1 class="title">{{ vehicle[1] }}</h1>
+                <div class="price">Rs {{ "{:,.0f}".format(vehicle[2]) }}</div>
+                <div class="info">
+                    <div class="box">
+                        <div class="label">Model Year</div>
+                        <div class="value">{{ vehicle[3] }}</div>
+                    </div>
+                    <div class="box">
+                        <div class="label">Brand</div>
+                        <div class="value">{{ vehicle[5] }}</div>
+                    </div>
+                </div>
+                <h3>Description</h3>
+                <div class="desc">{{ vehicle[4] or 'No description provided.' }}</div>
+                <a href="{{ url_for('home') }}" class="btn">← Back to listings</a>{% if session.user_id == vehicle[6] %}
+                <form method="POST" action="{{ url_for('delete_vehicle', vehicle_id=vehicle[0]) }}"
+                    style="display:inline"><button class="btn delete">Delete listing</button></form>{% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
